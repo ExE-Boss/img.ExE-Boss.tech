@@ -1,0 +1,30 @@
+# Configuration
+env:
+    global:
+        secure: "xIGL3DtSCOr0QYFlSSEsDBmfFT4NW06amWT+cWMkHPX1qFsr/LDen1CQibzpHhvZsVrTb9zC/arEK77kezMo4McxPdg4zGxsG7S35tAXXojYDnxhwgrnvgJsyHztqHJmwPWUnUfI/EBy/eS5NUofjMipWNmTue7NGLkw38t1oWYhUWwnXbmkccJ81f/W6kO16pBZcR20qYRzQKcHSkQuLUbHe2ICH6oYF4sF11wDzPDoe0GJ3PWE/SyY2nRzVgu7mlqzXT1avVicIAPehEw1Pfxc/CWssnKMQWhblLKho+Q8W83l4XsnevoQGMxOj1tSTSQOLzfcu2bR+3/6HBNfU1UktRPURfay17j0X+Ea4mi0nmaBwK4g2g7UcA1oOQMzyqEQew5r4BimUXWIlAtXHR8l/Smi/OPYbTYoAu7ANkIYBUepFQZtvmdkwxoTM3ySidCl4garHF0povTsesx+QkAZPtIbo/ZzHD4XVTAthSIRi1451BfH0GzqFb7TQNxMuFk/TMOCHogPDwhsN0t+HQeAr9ulk9Im2hriOGG8UgtwMUiY1fCDhGytH4IXTDbTM/qQRq2Hyo3SFWagf2AF8Tx1KXSRpPVww6E9axC+xCSA+sH7pb8LrSBX5bQE8PRbPePu5ANAYhHSR8nEuFT1CWDNRmyqYqx+Rklxd0YYxAQ="
+sudo: false
+
+# The environment setup script
+install:
+
+# The build script
+script:
+    - git clone -b gh-pages -v https://${GH_TOKEN}@github.com/ExE-Boss/img.exe-boss.tech/ ../gh-pages
+    - rm -rf ../gh-pages/*
+    - cp ./CNAME ../gh-pages/CNAME || true
+    - find . -maxdepth 1 -type f -name "*.html" -exec cp -t ../gh-pages/ {} +
+    - cp -r ./static/ ../gh-pages/static/ || true
+    - cp -r ./images/ ../gh-pages/hotlink-ok/ || true
+    - cd ../gh-pages
+    - git add -A
+    - git config --global user.email "contact@travis-ci.org"
+    - git config --global user.name "Travis CI"
+    - git commit -am "CI Update" || true
+    - '[ "$TRAVIS_PULL_REQUEST" == "false" -a "$TRAVIS_BRANCH" == "master" ] && git push || true'
+
+# Disable email notifications
+notifications:
+    email: false
+
+# WHO IN THE F# (the programming language) DOESN’T SUPPORT TABS IN 2017? '	' <- tab
+# P.S.: F# (the programming language) also doesn’t support tabs, and that's terrible
