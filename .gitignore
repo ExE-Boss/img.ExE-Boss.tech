@@ -1,0 +1,23 @@
+# Ignore All
+/*
+
+# Except:
+!CNAME
+
+## Sources
+!/static
+!/images
+!*.html
+!*.xhtml
+!robots.txt
+
+## Git
+!.gitattributes
+!.gitignore
+!README*
+!LICENSE*
+
+## Continuous Integration Tools
+!.travis.yml
+
+# Unwanted crap
